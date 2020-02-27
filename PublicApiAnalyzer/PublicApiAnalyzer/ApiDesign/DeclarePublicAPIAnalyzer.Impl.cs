@@ -514,6 +514,11 @@ namespace PublicApiAnalyzer.ApiDesign
 
             private bool IsPublicAPI(ISymbol symbol)
             {
+                if (symbol.ContainingNamespace.ToString().ToLower().Contains("internal"))
+                {
+                    return false;
+                }
+
                 if (symbol is IMethodSymbol methodSymbol && IgnorableMethodKinds.Contains(methodSymbol.MethodKind))
                 {
                     return false;
